@@ -14,7 +14,12 @@
       "Bash(curl -s http://localhost:3000/_next/static/chunks/\\\\[root-of-the-server\\\\]__0.6gvbw._.css)",
       "Bash(git add *)",
       "Bash(git commit -m 'fix: sync package-lock.json for CI *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(npm ls *)",
+      "Bash(npm why *)",
+      "Bash(python3 -c ' *)",
+      "Bash(git commit -m 'fix: add @emnapi/runtime and @emnapi/core to lock file for Linux CI *)",
+      "Bash(git commit -m 'feat: add Cloudflare Workers deployment config *)"
     ],
     "additionalDirectories": [
       "/Users/mui/projects/clocksy/clippr/src/app/hizmetler",
