@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --eslint --tailwind --src-dir --app --turbopack --no-import-alias --yes)",
+      "Bash(mkdir -p /Users/mui/projects/clocksy/clippr/src/app/hizmetler/\\\\[slug\\\\] /Users/mui/projects/clocksy/clippr/src/app/subeler /Users/mui/projects/clocksy/clippr/src/app/randevu /Users/mui/projects/clocksy/clippr/src/app/blog/\\\\[slug\\\\] /Users/mui/projects/clocksy/clippr/src/app/hakkimizda /Users/mui/projects/clocksy/clippr/src/app/iletisim /Users/mui/projects/clocksy/clippr/src/app/sss)",
+      "Bash(node -e \"const l = require\\('./node_modules/lucide-react'\\); console.log\\(Object.keys\\(l\\).filter\\(k => k.toLowerCase\\(\\).includes\\('social'\\) || k.toLowerCase\\(\\).includes\\('share'\\) || k.toLowerCase\\(\\).includes\\('insta'\\) || k.toLowerCase\\(\\).includes\\('face'\\) || k.toLowerCase\\(\\).includes\\('twitter'\\) || k.toLowerCase\\(\\).includes\\('link'\\)\\)\\)\")",
+      "Bash(rsync -a --exclude='node_modules' --exclude='.git' /Users/mui/projects/clocksy/clippr/ /Users/mui/projects/clocksy/)",
+      "Bash(xargs sed -i '' -e s/Clippr/Clocksy/g -e s/clippr/clocksy/g -e s/CLIPPR/CLOCKSY/g)",
+      "Bash(mkdir -p /Users/mui/projects/clocksy/src/app/kesifet/\\\\[slug\\\\])",
+      "Bash(npx tsc *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000 -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000/_next/static/chunks/\\\\[root-of-the-server\\\\]__0.6gvbw._.css)"
+    ],
+    "additionalDirectories": [
+      "/Users/mui/projects/clocksy/clippr/src/app/hizmetler",
+      "/Users/mui/projects/clocksy/src/app/kesifet"
+    ]
+  }
+}

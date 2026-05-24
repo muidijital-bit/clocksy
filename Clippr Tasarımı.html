@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Clippr — kuaför & Kuaför Randevu Platformu</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+<link rel="stylesheet" href="tokens.css"/>
+
+<style>
+  html, body { margin: 0; padding: 0; background: #18130e; }
+  body { font-family: 'Geist', system-ui, sans-serif; }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="customer.jsx"></script>
+<script type="text/babel" src="barber.jsx"></script>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#c9a84c",
+  "radius": 16,
+  "density": "balanced",
+  "fontDisplay": "Fraunces",
+  "showSkeletons": true
+}/*EDITMODE-END*/;
+
+function Frame({ children, w = 1440, h = 900 }) {
+  return (
+    <div style={{ width: w, height: h, background: 'var(--bg)', overflow: 'hidden' }}>
+      {children}
+    </div>
+  );
+}
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  // apply tweaks to root
+  React.useEffect(() => {
+    const r = document.documentElement;
+    r.style.setProperty('--gold', t.accent);
+    // recompute light/dark variants of the accent
+    const hex = t.accent.replace('#','');
+    const n = parseInt(hex, 16);
+    const rr = (n >> 16) & 255, gg = (n >> 8) & 255, bb = n & 255;
+    const light = `rgb(${Math.min(255, rr+30)}, ${Math.min(255, gg+30)}, ${Math.min(255, bb+30)})`;
+    const dark  = `rgb(${Math.max(0, rr-30)}, ${Math.max(0, gg-30)}, ${Math.max(0, bb-30)})`;
+    r.style.setProperty('--gold-light', light);
+    r.style.setProperty('--gold-dark', dark);
+    r.style.setProperty('--gold-grad', `linear-gradient(135deg, ${light} 0%, ${t.accent} 50%, ${dark} 100%)`);
+    r.style.setProperty('--gold-soft', `${t.accent}1f`);
+    r.style.setProperty('--r-lg', `${t.radius}px`);
+    r.style.setProperty('--r-md', `${Math.max(6, t.radius - 4)}px`);
+    r.style.setProperty('--r-xl', `${t.radius + 6}px`);
+    r.style.setProperty('--font-display', `"${t.fontDisplay}", "Times New Roman", serif`);
+  }, [t]);
+
+  return (
+    <>
+      <DesignCanvas>
+        <DCSection id="customer" title="Müşteri Tarafı" subtitle="Hero · Listing · Profile · Booking · Dashboard">
+          <DCArtboard id="hero" label="01 · Hero / Landing" width={1440} height={900}>
+            <Frame><HeroScreen/></Frame>
+          </DCArtboard>
+          <DCArtboard id="listing" label="02 · Listing — Grid" width={1440} height={900}>
+            <Frame><ListingScreen/></Frame>
+          </DCArtboard>
+          <DCArtboard id="listing-map" label="02b · Listing — Map" width={1440} height={900}>
+            <Frame><ListingScreen mapView/></Frame>
+          </DCArtboard>
+          <DCArtboard id="profile" label="03 · Business Profile" width={1440} height={1400}>
+            <Frame h={1400}><ProfileScreen/></Frame>
+          </DCArtboard>
+          <DCArtboard id="book-1" label="04a · Booking — Adım 1 (Usta)" width={1440} height={900}>
+            <Frame><BookingScreen step={1}/></Frame>
+          </DCArtboard>
+          <DCArtboard id="book-2" label="04b · Booking — Adım 2 (Tarih)" width={1440} height={900}>
+            <Frame><BookingScreen step={2}/></Frame>
+          </DCArtboard>
+          <DCArtboard id="book-3" label="04c · Booking — Adım 3 (Onay)" width={1440} height={900}>
+            <Frame><BookingScreen step={3}/></Frame>
+          </DCArtboard>
+          <DCArtboard id="dash" label="05 · Müşteri Dashboard" width={1440} height={1100}>
+            <Frame h={1100}><DashboardScreen/></Frame>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="barber" title="Salon Paneli" subtitle="kuaför tarafı: dashboard, randevu detayı, takvim">
+          <DCArtboard id="b-dash" label="07 · kuaför Dashboard" width={1440} height={1100}>
+            <Frame h={1100}><BarberDashScreen/></Frame>
+          </DCArtboard>
+          <DCArtboard id="b-detail" label="08 · Randevu Detay (Modal)" width={1440} height={900}>
+            <Frame><ApptDetailScreen/></Frame>
+          </DCArtboard>
+          <DCArtboard id="b-sched" label="09 · Takvim Yönetimi" width={1440} height={1100}>
+            <Frame h={1100}><ScheduleScreen/></Frame>
+          </DCArtboard>
+        </DCSection>
+
+        <DCPostIt top={20} left={20} rotate={-3} width={220}>
+          <b>Clippr</b> · 9 ekran<br/>
+          Dark mode · Editorial barbershop<br/>
+          Gold #C9A84C · Fraunces + Geist
+        </DCPostIt>
+      </DesignCanvas>
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Renk & Form" />
+        <TweakColor label="Altın aksan"
+          options={['#c9a84c', '#d4a73c', '#b8956a', '#9f7e3e', '#c87a3c']}
+          value={t.accent}
+          onChange={(v) => setTweak('accent', v)} />
+        <TweakSlider label="Köşe yuvarlaklığı" value={t.radius} min={4} max={24} unit="px"
+          onChange={(v) => setTweak('radius', v)} />
+        <TweakSection label="Tipografi" />
+        <TweakSelect label="Display fontu" value={t.fontDisplay}
+          options={['Fraunces', 'Geist', 'Georgia', 'Times New Roman']}
+          onChange={(v) => setTweak('fontDisplay', v)} />
+        <TweakSection label="Diğer" />
+        <TweakToggle label="Skeleton yükleme göster" value={t.showSkeletons}
+          onChange={(v) => setTweak('showSkeletons', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+
+</body>
+</html>

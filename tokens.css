@@ -1,0 +1,298 @@
+/* Clippr — design tokens
+   Modern light theme. Sophisticated neutral palette with deep ink accent.
+*/
+
+:root {
+  /* Surfaces (light, slightly warm off-white) */
+  --bg:           #fafaf7;
+  --surface-1:    #ffffff;
+  --surface-2:    #f4f3ee;
+  --surface-3:    #ebe9e2;
+  --line:         #e6e3da;
+  --line-strong:  #d3cfc2;
+
+  /* Text */
+  --text:         #181613;
+  --text-muted:   #5a5750;
+  --text-dim:     #908a7e;
+
+  /* Accent — deep ink / charcoal (modern, sophisticated) */
+  --gold:         #181613;
+  --gold-light:   #2a2722;
+  --gold-dark:    #050403;
+  --gold-grad:    linear-gradient(135deg, #2a2722 0%, #181613 50%, #050403 100%);
+  --gold-soft:    rgba(24, 22, 19, 0.06);
+
+  /* Status */
+  --status-ok:    #3f7a3a;
+  --status-warn:  #b8842a;
+  --status-bad:   #b14b35;
+  --status-info:  #3b6da3;
+
+  /* Radii */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+
+  /* Shadows */
+  --sh-1: 0 1px 2px rgba(24,22,19,0.06), 0 1px 1px rgba(24,22,19,0.04);
+  --sh-2: 0 8px 32px rgba(24,22,19,0.08), 0 1px 2px rgba(24,22,19,0.06);
+  --sh-gold: 0 1px 2px rgba(24,22,19,0.1), 0 8px 24px rgba(24,22,19,0.16);
+
+  /* Type */
+  --font-display: "Fraunces", "Times New Roman", serif;
+  --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* base reset for artboard contents */
+.clippr {
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "cv11";
+  letter-spacing: -0.005em;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.clippr * { box-sizing: border-box; }
+.clippr h1, .clippr h2, .clippr h3, .clippr h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  margin: 0;
+  color: var(--text);
+}
+.clippr p { margin: 0; }
+.clippr button { font-family: inherit; cursor: pointer; }
+
+/* utilities */
+.clippr .mono { font-family: var(--font-mono); font-feature-settings: "ss01"; letter-spacing: 0; }
+.clippr .gold { color: var(--text); }
+.clippr .gold-grad-text {
+  color: var(--text);
+  font-style: italic;
+  font-family: var(--font-display);
+}
+.clippr .surface-1 { background: var(--surface-1); }
+.clippr .surface-2 { background: var(--surface-2); }
+.clippr .border { border: 1px solid var(--line); }
+.clippr .border-b { border-bottom: 1px solid var(--line); }
+.clippr .border-t { border-top: 1px solid var(--line); }
+
+/* primary CTA — solid ink */
+.clippr .btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--text);
+  color: #fafaf7;
+  border: 0;
+  padding: 12px 20px;
+  border-radius: var(--r-md);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  box-shadow: var(--sh-gold);
+  transition: transform .12s, filter .12s;
+  white-space: nowrap;
+}
+.clippr .btn-gold:hover { filter: brightness(1.15); }
+.clippr .btn-gold.lg { padding: 16px 28px; font-size: 15px; border-radius: var(--r-lg); }
+.clippr .btn-gold.sm { padding: 8px 14px; font-size: 13px; border-radius: var(--r-sm); }
+
+.clippr .btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+  padding: 12px 20px;
+  border-radius: var(--r-md);
+  font-weight: 500;
+  font-size: 14px;
+  transition: background .12s, border-color .12s;
+}
+.clippr .btn-ghost:hover { background: var(--surface-2); border-color: var(--text); }
+.clippr .btn-ghost.sm { padding: 8px 14px; font-size: 13px; border-radius: var(--r-sm); }
+
+/* chip */
+.clippr .chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; border-radius: var(--r-pill);
+  background: var(--surface-1); border: 1px solid var(--line);
+  font-size: 13px; color: var(--text-muted);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all .12s;
+}
+.clippr .chip:hover { border-color: var(--line-strong); color: var(--text); }
+.clippr .chip.active {
+  background: var(--text);
+  border-color: var(--text);
+  color: #fafaf7;
+}
+
+/* card */
+.clippr .card {
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.clippr .card.hov { transition: transform .15s, border-color .15s, box-shadow .15s; }
+.clippr .card.hov:hover { border-color: var(--line-strong); transform: translateY(-2px); box-shadow: var(--sh-2); }
+
+/* badges */
+.clippr .badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 9px; border-radius: var(--r-pill);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.clippr .badge.ok    { background: rgba(63,122,58,.10); color: var(--status-ok); }
+.clippr .badge.warn  { background: rgba(184,132,42,.12); color: var(--status-warn); }
+.clippr .badge.bad   { background: rgba(177,75,53,.10); color: var(--status-bad); }
+.clippr .badge.info  { background: rgba(59,109,163,.10); color: var(--status-info); }
+.clippr .badge.gold  { background: var(--text); color: #fafaf7; }
+.clippr .badge.dim   { background: var(--surface-2); color: var(--text-dim); }
+
+/* hairline divider */
+.clippr .hr { height: 1px; background: var(--line); border: 0; margin: 0; }
+
+/* placeholder image — soft warm stripe */
+.clippr .ph {
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(24,22,19,.03) 0 12px,
+      rgba(24,22,19,.06) 12px 24px),
+    linear-gradient(135deg, #f4f3ee, #ebe9e2);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* avatar */
+.clippr .av {
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ebe9e2, #d3cfc2);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* star */
+.clippr .star { color: var(--text); }
+
+/* progress steps */
+.clippr .steps {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.clippr .step {
+  display: flex; align-items: center; gap: 10px;
+}
+.clippr .step .dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--surface-2); border: 1px solid var(--line-strong);
+  color: var(--text-muted);
+  font-size: 11px;
+}
+.clippr .step.active .dot { background: var(--text); color: #fafaf7; border-color: var(--text); }
+.clippr .step.done .dot { background: var(--surface-3); color: var(--text); border-color: var(--text); }
+.clippr .step.active { color: var(--text); }
+.clippr .step.done { color: var(--text-muted); }
+.clippr .steps .sep { width: 28px; height: 1px; background: var(--line); }
+
+/* skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.clippr .skel {
+  background: linear-gradient(90deg,
+    var(--surface-2) 0%, var(--surface-3) 50%, var(--surface-2) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+  border-radius: var(--r-sm);
+}
+
+/* scroll behavior inside artboards */
+.clippr .scroll-y { overflow-y: auto; scrollbar-width: none; }
+.clippr .scroll-y::-webkit-scrollbar { display: none; }
+
+/* ──────────────────────────────────────────────────────────────
+   HERO — blurred barbershop collage backdrop
+   ────────────────────────────────────────────────────────────── */
+.hero-bg {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(250,250,247,0.55) 0%,
+    rgba(250,250,247,0.75) 60%,
+    rgba(250,250,247,0.95) 100%);
+  backdrop-filter: blur(0px);
+}
+.hero-tile {
+  position: absolute;
+  filter: blur(28px) saturate(1.1);
+  opacity: 0.85;
+  border-radius: 32px;
+  background-size: cover;
+  background-position: center;
+}
+/* SVG-art "photos": warm-toned painterly shapes that read as barbershop
+   interior glimpses — no copyrighted imagery, no stock photo URLs. */
+.hero-tile.t1 {
+  top: -8%; left: -6%; width: 38%; height: 70%;
+  background:
+    radial-gradient(circle at 30% 35%, #c9a484 0 22%, transparent 24%),
+    radial-gradient(circle at 70% 60%, #8a6a4f 0 18%, transparent 20%),
+    linear-gradient(135deg, #d8c4ac 0%, #a48868 60%, #6b5640 100%);
+}
+.hero-tile.t2 {
+  top: -10%; right: -8%; width: 42%; height: 75%;
+  background:
+    radial-gradient(circle at 40% 30%, #4a4438 0 25%, transparent 27%),
+    radial-gradient(ellipse at 75% 70%, #b9966b 0 20%, transparent 22%),
+    linear-gradient(160deg, #2c2823 0%, #5a4f3e 50%, #8a7458 100%);
+}
+.hero-tile.t3 {
+  bottom: -15%; left: 18%; width: 36%; height: 65%;
+  background:
+    radial-gradient(circle at 50% 40%, #d4b88a 0 28%, transparent 30%),
+    linear-gradient(120deg, #e6cfa8 0%, #b8956a 70%, #6a5238 100%);
+}
+.hero-tile.t4 {
+  bottom: -8%; right: 12%; width: 28%; height: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #3a342c 0 30%, transparent 32%),
+    linear-gradient(135deg, #786650 0%, #3e342a 100%);
+}
+.hero-tile.t5 {
+  top: 30%; left: 38%; width: 30%; height: 45%;
+  background:
+    radial-gradient(circle at 45% 55%, #c5a079 0 28%, transparent 30%),
+    linear-gradient(150deg, #a3835f 0%, #5a4632 100%);
+  filter: blur(40px) saturate(1.05);
+  opacity: 0.6;
+}

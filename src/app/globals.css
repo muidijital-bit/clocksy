@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+:root {
+  /* Surfaces */
+  --bg:          #fafaf7;
+  --surface-1:   #ffffff;
+  --surface-2:   #f4f3ee;
+  --surface-3:   #ebe9e2;
+  --line:        #e6e3da;
+  --line-strong: #d3cfc2;
+
+  /* Text */
+  --text:       #181613;
+  --text-muted: #5a5750;
+  --text-dim:   #908a7e;
+
+  /* Accent — deep ink */
+  --accent:      #181613;
+  --accent-soft: rgba(24, 22, 19, 0.06);
+
+  /* Radii */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+
+  /* Shadows */
+  --sh-1: 0 1px 2px rgba(24,22,19,0.06), 0 1px 1px rgba(24,22,19,0.04);
+  --sh-2: 0 8px 32px rgba(24,22,19,0.08), 0 1px 2px rgba(24,22,19,0.06);
+
+  /* Fonts */
+  --font-display: var(--font-fraunces), "Times New Roman", serif;
+  --font-sans:    var(--font-inter), -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    var(--font-inter), ui-monospace, monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.005em;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+/* ── Hero photo wall ── */
+@keyframes scrollUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+
+.photo-wall {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: 8px;
+  padding: 0 8px;
+  overflow: hidden;
+  pointer-events: none;
+  /* vignette + text-safe overlay */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%, rgba(0,0,0,0.6) 10%,
+    rgba(0,0,0,0.6) 90%, transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%, rgba(0,0,0,0.6) 10%,
+    rgba(0,0,0,0.6) 90%, transparent 100%
+  );
+}
+
+/* full overlay for readability */
+.photo-wall::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(180deg,
+      rgba(250,250,247,0.72) 0%,
+      rgba(250,250,247,0.28) 35%,
+      rgba(250,250,247,0.28) 65%,
+      rgba(250,250,247,0.88) 100%
+    );
+  pointer-events: none;
+}
+
+.photo-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: scrollUp linear infinite;
+  will-change: transform;
+}
+
+/* hide 4th col on smaller screens */
+.photo-col:nth-child(4) { display: none; }
+@media (min-width: 900px) { .photo-col:nth-child(4) { display: flex; } }
+
+.photo-card {
+  flex-shrink: 0;
+  border-radius: 10px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── Photo palettes (barbershop moods) ── */
+
+/* warm amber interior */
+.pc-a {
+  background:
+    radial-gradient(ellipse 65% 50% at 45% 35%, rgba(210,155,80,0.9) 0%, transparent 65%),
+    radial-gradient(circle at 15% 80%, rgba(80,50,20,0.7) 0%, transparent 35%),
+    radial-gradient(ellipse at 85% 90%, rgba(60,40,20,0.5) 0%, transparent 30%),
+    linear-gradient(175deg, #1c1409 0%, #2e1e0e 55%, #180e06 100%);
+}
+
+/* dramatic dark — spotlight on scissors */
+.pc-b {
+  background:
+    radial-gradient(circle 35% at 60% 38%, rgba(230,210,170,0.85) 0%, rgba(180,150,90,0.4) 45%, transparent 65%),
+    radial-gradient(ellipse at 25% 70%, rgba(100,80,50,0.4) 0%, transparent 40%),
+    linear-gradient(140deg, #0e0c0a 0%, #1e1a14 60%, #100e0a 100%);
+}
+
+/* rich burgundy leather */
+.pc-c {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 60%, rgba(140,55,55,0.6) 0%, transparent 65%),
+    radial-gradient(circle at 80% 20%, rgba(200,140,80,0.35) 0%, transparent 35%),
+    radial-gradient(circle at 20% 15%, rgba(180,120,60,0.25) 0%, transparent 30%),
+    linear-gradient(155deg, #3e1c1c 0%, #1e0e0e 55%, #120808 100%);
+}
+
+/* golden hour portrait */
+.pc-d {
+  background:
+    radial-gradient(ellipse 55% 70% at 48% 30%, rgba(240,185,90,0.8) 0%, rgba(180,100,30,0.5) 50%, transparent 72%),
+    radial-gradient(ellipse at 50% 85%, rgba(30,20,10,0.8) 0%, transparent 40%),
+    linear-gradient(180deg, #0e0a04 0%, #1c1408 40%, #0a0804 100%);
+}
+
+/* cream ivory — towel / grooming ritual */
+.pc-e {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(235,215,175,0.7) 0%, rgba(190,160,110,0.4) 55%, transparent 75%),
+    radial-gradient(circle at 85% 85%, rgba(150,110,60,0.3) 0%, transparent 30%),
+    linear-gradient(120deg, #c8a868 0%, #8a6840 50%, #3a2818 100%);
+}
+
+/* dark moody mirror reflection */
+.pc-f {
+  background:
+    radial-gradient(ellipse 40% 60% at 55% 40%, rgba(200,185,155,0.6) 0%, transparent 55%),
+    radial-gradient(circle at 20% 25%, rgba(150,130,100,0.3) 0%, transparent 30%),
+    radial-gradient(ellipse at 80% 80%, rgba(80,65,45,0.5) 0%, transparent 40%),
+    linear-gradient(145deg, #1a1814 0%, #2e2a22 55%, #141210 100%);
+}
+
+/* warm wood & copper */
+.pc-g {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(200,150,70,0.5) 0%, transparent 55%),
+    radial-gradient(circle at 30% 65%, rgba(160,100,40,0.5) 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 50%, rgba(120,70,30,0.35) 0%, transparent 35%),
+    linear-gradient(160deg, #7a5228 0%, #4a3018 55%, #1e1408 100%);
+}
+
+/* cinematic overhead — hands & hair */
+.pc-h {
+  background:
+    radial-gradient(ellipse 75% 45% at 50% 55%, rgba(170,120,60,0.75) 0%, transparent 65%),
+    radial-gradient(circle at 25% 20%, rgba(220,170,90,0.3) 0%, transparent 30%),
+    radial-gradient(circle at 75% 85%, rgba(60,40,20,0.5) 0%, transparent 30%),
+    linear-gradient(170deg, #100c06 0%, #201610 50%, #0e0a06 100%);
+}
