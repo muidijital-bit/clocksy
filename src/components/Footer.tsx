@@ -90,7 +90,7 @@ export default function Footer() {
 
         <div className="border-t border-[#2a2520] mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2">
           <p className="text-xs text-[#908a7e]">© 2026 Clocksy. Tüm hakları saklıdır.</p>
-          <a href="https://muimedya.com" target="_blank" rel="noopener noreferrer" className="text-xs text-[#908a7e] hover:text-[#fafaf7] transition-colors">created by muimedya</a>
+          <a href="https://muimedya.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-[#908a7e] hover:text-[#fafaf7] transition-colors">Web tasarım ve geliştirme: Mui Medya</a>
         </div>
       </div>
     </footer>
